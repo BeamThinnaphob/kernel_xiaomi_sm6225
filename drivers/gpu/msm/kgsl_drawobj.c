@@ -422,6 +422,7 @@ static bool drawobj_sync_fence_func(void *priv)
 {
 	struct kgsl_drawobj_sync_event *event = priv;
 	struct event_fence_info *info = event ? event->priv : NULL;
+	int i;
 
 	for (i = 0; info && i < info->num_fences; i++)
 		trace_syncpoint_fence_expire(event->syncobj,

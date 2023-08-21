@@ -1741,7 +1741,6 @@ static int tz_log_probe(struct platform_device *pdev)
 
 	tzdbg_get_tz_version();
 	return 0;
-
 exit_free_disp_buf:
 	dma_free_coherent(&pdev->dev, display_buf_size,
 			(void *)tzdbg.disp_buf, disp_buf_paddr);
@@ -1750,6 +1749,9 @@ exit_free_encr_log_buf:
 exit_free_qsee_log_buf:
 	tzdbg_free_qsee_log_buf(pdev);
 exit_free_diag_buf:
+	kfree(tzdbg.diag_buf);
+	return -ENXIO;
+err:
 	kfree(tzdbg.diag_buf);
 	return -ENXIO;
 }
